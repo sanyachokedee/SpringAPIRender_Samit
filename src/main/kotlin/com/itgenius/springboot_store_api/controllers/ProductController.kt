@@ -17,6 +17,8 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.ZoneId   // ให้เพิ่มตัวแปร ZoneId จาก package java.time สำหรับ Asia/Bangkok
 
+ZoneId zone = ZoneId.of(“Asia/Bangkok”);
+
 @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
 @Tag(name = "Products", description = "APIs for managing products")
 @RestController
@@ -67,8 +69,8 @@ class ProductController(private val productService: ProductService) {
         @RequestParam unitInStock: Int,
         @RequestParam(required = false) productPicture: String?,
         @RequestParam categoryId: Int,
-        @RequestParam(required = false) createdDate: LocalDateTime(ZoneId.of("Asia/Bangkok"))?,
-        @RequestParam(required = false) modifiedDate: LocalDateTime(ZoneId.of("Asia/Bangkok")?,
+        @RequestParam(required = false) createdDate: LocalDateTime()?,
+        @RequestParam(required = false) modifiedDate: LocalDateTime()?,
         @RequestParam(required = false) image: MultipartFile?
     ): ResponseEntity<Product> {
         val product = Product(
@@ -77,7 +79,7 @@ class ProductController(private val productService: ProductService) {
             unitInStock = unitInStock,
             productPicture = productPicture,
             categoryId = categoryId,
-            createdDate = createdDate ?: LocalDateTime.now(ZoneId.of("Asia/Bangkok")),
+            createdDate = createdDate ?: LocalDateTime.now(zone),
             modifiedDate = modifiedDate
         )
         val createdProduct = productService.createProduct(product, image)
