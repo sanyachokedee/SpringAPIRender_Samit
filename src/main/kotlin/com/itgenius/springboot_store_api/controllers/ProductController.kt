@@ -79,7 +79,7 @@ class ProductController(private val productService: ProductService) {
             unitInStock = unitInStock,
             productPicture = productPicture,
             categoryId = categoryId,
-            createdDate = createdDate ?: LocalDateTime.now(zone),
+            createdDate = createdDate ?: LocalDateTime.now(),
             modifiedDate = modifiedDate
         )
         val createdProduct = productService.createProduct(product, image)
