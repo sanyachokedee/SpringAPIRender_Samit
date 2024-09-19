@@ -63,7 +63,7 @@ class ProductController(private val productService: ProductService) {
     @PostMapping(consumes = ["multipart/form-data"])
     fun createProduct(
         //set zone …
-        val ZoneId zone = ZoneId.of(“Asia/Bangkok”);
+        ZoneId zone = ZoneId.of(“Asia/Bangkok”);
         @RequestParam productName: String,
         @RequestParam unitPrice: BigDecimal,
         @RequestParam unitInStock: Int,
