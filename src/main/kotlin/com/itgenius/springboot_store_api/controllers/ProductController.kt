@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import java.time.ZoneId   // ให้เพิ่มตัวแปร ZoneId จาก package java.time สำหรับ Asia/Bangkok
 
 @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
 @Tag(name = "Products", description = "APIs for managing products")
