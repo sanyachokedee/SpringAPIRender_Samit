@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import java.time.ZoneId
 
 @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN') or hasAuthority('MANAGER')")
 @Tag(name = "Products", description = "APIs for managing products")
@@ -61,6 +62,8 @@ class ProductController(private val productService: ProductService) {
     @Operation(summary = "Create product" , description = "Create product to database")
     @PostMapping(consumes = ["multipart/form-data"])
     fun createProduct(
+        //set zone …
+        val ZoneId zone = ZoneId.of(“Asia/Bangkok”);
         @RequestParam productName: String,
         @RequestParam unitPrice: BigDecimal,
         @RequestParam unitInStock: Int,
@@ -76,7 +79,7 @@ class ProductController(private val productService: ProductService) {
             unitInStock = unitInStock,
             productPicture = productPicture,
             categoryId = categoryId,
-            createdDate = createdDate ?: LocalDateTime.now(),
+            createdDate = createdDate ?: LocalDateTime.now(zone),
             modifiedDate = modifiedDate
         )
         val createdProduct = productService.createProduct(product, image)
